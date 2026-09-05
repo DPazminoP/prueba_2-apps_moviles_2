@@ -69,6 +69,13 @@ export default function Screen2() {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => <Tarjeta datos={item} />}
         />
+        <FlatList
+                      data={mascotas}
+                      renderItem={({item})=> 
+                        item == undefined
+                        ?<Text></Text>
+                        :<Tarjeta datos={item}/>
+                      }/>
       
     </View>
 
