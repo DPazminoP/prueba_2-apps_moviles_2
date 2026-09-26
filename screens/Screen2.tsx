@@ -41,7 +41,7 @@ export default function Screen2() {
 
 
   return (
-    <ImageBackground source={{uri: "https://i.postimg.cc/dtcCdCnX/mascotas.jpg"}} style={styles.container}>
+    <ImageBackground source={{uri: "https://i.postimg.cc/SQZPvFjn/fondo1.jpg"}} style={styles.container}>
       
       <View>
       <Text>Buscar Mascota por id:</Text>

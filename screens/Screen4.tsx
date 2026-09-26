@@ -1,29 +1,26 @@
 import { StyleSheet, Text, View, ImageBackground, FlatList, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-type Pelicula = {
+type Fruta = {
+  id: number;
   titulo: string;
-  anio: number;
+  genero: string;
   descripcion: string;
-  enlaces: {
-    url: string;
-    trailer: string;
-    image: string;
-  };
+  anio: number;
+  imagen: string;
 };
 
 export default function Screen4() {
-  const API = "https://jritsqmet.github.io/web-api/peliculas2.json";
-  const [peliculas, setPeliculas] = useState<Pelicula[]>([]);
+  const API = "https://raw.githubusercontent.com/DPazminoP/peliculas-json/refs/heads/main/peliculas.json"; 
+  const [frutas, setFrutas] = useState<Fruta[]>([]);
 
   async function leerDatos() {
     try {
       const resp = await fetch(API);
       const json = await resp.json();
-      // La API devuelve { peliculas: [...] }
-      setPeliculas(json.peliculas);
+      setFrutas(json.frutas);
     } catch (error) {
-      console.log("Error cargando películas:", error);
+      console.log("Error cargando frutas:", error);
     }
   }
 
@@ -33,18 +30,21 @@ export default function Screen4() {
 
   return (
     <ImageBackground 
-      source={{uri: "https://i.postimg.cc/dtcCdCnX/mascotas.jpg"}} 
+      source={{uri: "https://i.postimg.cc/SQZPvFjn/fondo1.jpg"}} 
       style={styles.container}
     >
       <FlatList
-        data={peliculas}
-        keyExtractor={(item, index) => index.toString()}
+        data={frutas}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={3} // ✅ ahora se muestran en 3 columnas
+        columnWrapperStyle={styles.row} // ✅ estilo para cada fila
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={{ uri: item.enlaces.image }} style={styles.poster} />
+            <Image source={{ uri: item.imagen }} style={styles.poster} />
             <Text style={styles.title}>{item.titulo}</Text>
             <Text style={styles.year}>Año: {item.anio}</Text>
             <Text style={styles.desc}>{item.descripcion}</Text>
+            <Text style={styles.genre}>Categoría: {item.genero}</Text>
           </View>
         )}
       />
@@ -60,30 +60,46 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 8,
   },
+  row: {
+    justifyContent: "space-between", // ✅ distribuye las tarjetas en cada fila
+  },
   card: {
-    backgroundColor: "#FACC15",
-    marginVertical: 10,
+    flex: 1, // ✅ cada tarjeta ocupa espacio proporcional
+    backgroundColor: "#fa5d1539",
+    margin: 5,
     padding: 10,
     borderRadius: 10,
+    alignItems: "center",
   },
   poster: {
     width: "100%",
-    height: 200,
+    height: 100,
     borderRadius: 10,
     marginBottom: 10,
+    resizeMode:"contain",
   },
   title: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
     color: "#1E3A8A",
+    textAlign: "center",
   },
   year: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#333",
+    textAlign: "center",
   },
   desc: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#000",
     marginTop: 5,
+    textAlign: "center",
+  },
+  genre: {
+    fontSize: 12,
+    color: "#1E3A8A",
+    marginTop: 5,
+    fontStyle: "italic",
+    textAlign: "center",
   },
 });

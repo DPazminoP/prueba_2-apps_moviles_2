@@ -2,42 +2,59 @@ import { StyleSheet, Text, View, ImageBackground, TextInput, Button, Alert } fro
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../services/supabase'
 
-export default function Screen1() {
+export default function Screen1({navigation}:any) {
   const [id, setid] = useState(0)
   const [nombre, setnombre] = useState("")
-  const [especie, setespecie] = useState("") 
-  const [raza, setraza] = useState("")
+  const [contrasenia, setcontrasenia] = useState("") 
+  const [CI, setCI] = useState("")
   const [genero, setgenero] = useState("")
   const [edad, setedad] = useState("")
 
-  async function guardarMascota(){
-      const { error } = await supabase
-        .from('mascotas')
-        .insert(
-          { 
-            id: id, 
-            nombre: nombre,
-            especie: especie,
-            raza: raza,
-            genero: genero,
-            edad: edad,
+  async function guardarUsuario() {
+    if (!id || !nombre || !contrasenia || !CI || !genero || !edad) {
+    Alert.alert( "Debe llenar todos los campos para registrarse.");
+    return;
+  }
+    const { error } = await supabase
+    .from('usuarios')
+    .insert({
+      id: id,
+      nombre: nombre,
+      contrasenia: contrasenia,
+      CI: CI,
+      genero: genero,
+      edad: edad,
+    });
 
-          })
-        Alert.alert("Registro exitoso")
+  if (error) {
+    console.log(error);
+    Alert.alert("Error en el registro", error.message);
+  } else {
+    Alert.alert("Registro exitoso", "Ahora puedes iniciar sesión", [
+      {
+        text: "OK",
+        onPress: () => navigation.navigate("Login"), // ✅ envía a Login
+      },
+    ]);
+  }
+}
 
-    //console.log(error); 
-    }
 
   
 
 
   return (
-    <ImageBackground source={{uri: "https://i.postimg.cc/dtcCdCnX/mascotas.jpg"}} style={styles.container}>
+    <ImageBackground source={{uri: "https://i.postimg.cc/SQZPvFjn/fondo1.jpg"}} style={styles.container}>
+      
+      <Button 
+        title="Volver al inicio" 
+        onPress={() => navigation.navigate('Welcome')} 
+      />
       <View>
       <Text>REGISTRAR MASCOTA</Text>
 
       <TextInput 
-      placeholder='id-MASCOTA'
+      placeholder='idUsuario'
       onChangeText={(text) => setid( +text)}
       style={styles.txtInput}
       />
@@ -48,14 +65,14 @@ export default function Screen1() {
       style={styles.txtInput}
       />
       <TextInput 
-      placeholder='especie'
-      onChangeText={(text) => setespecie(text)}
+      placeholder='Contraseña'
+      onChangeText={(text) => setcontrasenia(text)}
       style={styles.txtInput}
       />
 
       <TextInput 
-      placeholder='raza'
-      onChangeText={(text) => setraza(text)}
+      placeholder='CI'
+      onChangeText={(text) => setCI(text)}
       style={styles.txtInput}
       />
 
@@ -72,7 +89,7 @@ export default function Screen1() {
       />
 
       <Button title='Guardar' color={'green'}
-      onPress={guardarMascota}
+      onPress={guardarUsuario}
       ></Button>
     </View>
 

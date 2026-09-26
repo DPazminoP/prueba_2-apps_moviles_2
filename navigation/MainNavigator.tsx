@@ -5,7 +5,9 @@ import Screen1 from '../screens/Screen1';
 import Screen2 from '../screens/Screen2';
 import Screen3 from '../screens/Screen3';
 import Screen4 from '../screens/Screen4';
+import LoginScreen from '../screens/LoginScreen';
 import { NavigationContainer } from '@react-navigation/native';
+import PerfilScreen from '../screens/PerfilScreen';
 
 
 
@@ -17,6 +19,16 @@ function MyStack(){
         <Stack.Navigator initialRouteName="Welcome">
             <Stack.Screen name='Welcome' component={WelcomeScreen}/>
 
+            <Bottom.Screen 
+                    name="Registro" 
+                    component={Screen1}
+            />
+
+            <Bottom.Screen 
+                name="Login" 
+                component={LoginScreen}
+            />
+            
             <Stack.Screen 
                 name='Bottom' 
                 component={MyBottom}
@@ -28,11 +40,8 @@ function MyStack(){
 
 function MyBottom(){
         return(
-            <Bottom.Navigator initialRouteName="AgregarMascotas">
-                <Bottom.Screen 
-                    name="AgregarMascotas" 
-                    component={Screen1}
-                />
+            <Bottom.Navigator initialRouteName="Detalles">
+                
 
                 <Bottom.Screen 
                     name="Detalles" 
@@ -46,8 +55,13 @@ function MyBottom(){
                 
 
                 <Bottom.Screen 
-                    name="APILista" 
+                    name="ListaProductos" 
                     component={Screen4}
+                />
+
+                <Bottom.Screen 
+                    name="Perfil" 
+                    component={PerfilScreen}
                 />
 
             </Bottom.Navigator>

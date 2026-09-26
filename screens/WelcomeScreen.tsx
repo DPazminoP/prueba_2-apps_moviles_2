@@ -2,12 +2,12 @@ import { Image, StyleSheet, Text, View, TouchableOpacity, ImageBackground} from 
 import React from 'react'
 
 export default function WelcomeScreen({navigation}:any) {
-  return (
+    return (
     
-        <ImageBackground source={{uri: "https://i.postimg.cc/dtcCdCnX/mascotas.jpg"}} style={styles.container}>
+        <ImageBackground source={{uri: "https://i.postimg.cc/SQZPvFjn/fondo1.jpg"}} style={styles.container}>
             <View style={styles.row}>
                 <Image
-                    source={{ uri: 'https://i.postimg.cc/bJ2K7W7d/Sin-titulo.png' }}
+                    source={{ uri: 'https://i.postimg.cc/nVjH2khJ/logo1-(1).png' }}
                     style={styles.logo}
                 />
             </View>
@@ -15,12 +15,22 @@ export default function WelcomeScreen({navigation}:any) {
             
             <TouchableOpacity 
                 style={styles.button}
-                onPress={() => {navigation.navigate('Bottom');}}>
+                onPress={() => {navigation.navigate('Login');}}>
                 <Image
-                    source={{ uri: 'https://i.postimg.cc/wMQjD1TP/gato.png' }}
+                    source={{ uri: 'https://i.postimg.cc/ZK8wzG5H/botonpeque.png' }}
                     style={styles.imgbt}
                 />
-                <Text style={styles.butonTxt}> Comenzar</Text>
+                <Text style={styles.butonTxt}>Iniciar Sesión</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+                style={styles.button}
+                onPress={() => {navigation.navigate('Registro');}}>
+                <Image
+                    source={{ uri: 'https://i.postimg.cc/ZK8wzG5H/botonpeque.png' }}
+                    style={styles.imgbt}
+                />
+                <Text style={styles.butonTxt}>Registrarse</Text>
             </TouchableOpacity>
             
             
@@ -28,11 +38,11 @@ export default function WelcomeScreen({navigation}:any) {
     </ImageBackground> 
     
 
-  )
+    )
 }
 
 const styles = StyleSheet.create({
-  container: {
+    container: {
         flex: 1,                // ✅ cada tarjeta ocupa proporcionalmente su columna
         margin: 5,              // espacio entre tarjetas
         alignItems: 'center',   // centra contenido horizontalmente
@@ -53,8 +63,8 @@ const styles = StyleSheet.create({
     },
 
     imgbt: {
-        width: 50,
-        height: 50,
+        width: 75,
+        height: 75,
     },
 
     butonTxt:{
@@ -65,8 +75,11 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-        width: 190,
-        height: 80,
+        width: 350,
+        height: 175,
+        paddingVertical: 20,
+        marginHorizontal:20,
+        marginVertical:100,
         },
 
     row: {
