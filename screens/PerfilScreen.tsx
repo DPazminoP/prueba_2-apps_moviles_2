@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { supabase } from '../services/supabase';
 
-export default function PerfilScreen({ navigation }: any) {
+export default function PerfilScreen({ navigation, route }: any) {
     const [nombre, setNombre] = useState<string>("Usuario sin registrar");
     const [edad, setEdad] = useState<number | null>(null);
     const [genero, setGenero] = useState<string>("");
+    const { userId } = route.params; 
 
     useEffect(() => {
     async function fetchUsuario() {
@@ -14,6 +15,7 @@ export default function PerfilScreen({ navigation }: any) {
             .from('usuarios')
             .select('nombre, edad, genero')
             .limit(1)
+            .eq('id', userId) 
             .single();
 
         if (error) {
@@ -27,7 +29,7 @@ export default function PerfilScreen({ navigation }: any) {
         }
 
         fetchUsuario();
-    }, []);
+    }, [userId]);
 
     return (
         <ImageBackground 
@@ -40,7 +42,7 @@ export default function PerfilScreen({ navigation }: any) {
             style={styles.avatar} 
         />
 
-        {/* Información del usuario */}
+
         <View style={styles.infoBox}>
             <Text style={styles.name}>{nombre}</Text>
             <Text style={styles.email}>
@@ -51,7 +53,7 @@ export default function PerfilScreen({ navigation }: any) {
             </Text>
         </View>
 
-        {/* Botón para ver productos */}
+
         <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate("ListaProductos")}
