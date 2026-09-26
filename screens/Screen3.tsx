@@ -24,7 +24,7 @@ export default function Screen3() {
     <ImageBackground source={{uri: "https://i.postimg.cc/SQZPvFjn/fondo1.jpg"}} style={styles.container}>
       <View>
         
-            <Text>Ver y editar mascotas</Text>
+            <Text>Compra  </Text>
             <FlatList
               data={mascotas}
               renderItem={({item})=> 

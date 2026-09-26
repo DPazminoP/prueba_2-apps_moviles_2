@@ -40,13 +40,10 @@ function MyStack(){
 
 function MyBottom(){
         return(
-            <Bottom.Navigator initialRouteName="Detalles">
+            <Bottom.Navigator initialRouteName="Perfil">
                 
 
-                <Bottom.Screen 
-                    name="Detalles" 
-                    component={Screen2}
-                />
+                
             
                 <Bottom.Screen 
                     name="EditarDatos" 
